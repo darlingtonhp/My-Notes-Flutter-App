@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1070294164448",
+    "project_id": "realpj-flutter-project",
+    "storage_bucket": "realpj-flutter-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070294164448:android:fe5539be95421bf1e28185",
+        "android_client_info": {
+          "package_name": "zw.darlhp.realpj"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1070294164448-540agavihbbv2s5f023toa0lkv4vrdh1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACztWNE4xNTqfxx7SoMxrC7S46lec1Oeo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1070294164448-540agavihbbv2s5f023toa0lkv4vrdh1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
