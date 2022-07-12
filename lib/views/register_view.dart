@@ -75,7 +75,7 @@ class _RegisterViewState extends State<RegisterView> {
                 } else if (e.code == 'invalid-email') {
                   await showErrorDialog(
                     context,
-                    'Invalid email entered',
+                    'This is an invalid email address',
                   );
                 } else {
                   await showErrorDialog(
