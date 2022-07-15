@@ -20,6 +20,7 @@ class _RegisterViewState extends State<RegisterView> {
   void initState() {
     _email = TextEditingController();
     _password = TextEditingController();
+    super.initState();
   }
 
   @override
