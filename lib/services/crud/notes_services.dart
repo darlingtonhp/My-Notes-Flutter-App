@@ -6,6 +6,7 @@ import 'package:path/path.dart' show join;
 import 'package:realpj/services/crud/crud_exceptions.dart';
 
 class NotesService {
+  Future<Database?>? _dbOpening;
   Database? _db;
 
   List<DatabaseNote> _notes = [];
@@ -36,8 +37,8 @@ class NotesService {
     }
   }
 
-  Future<void> _cacheNotes() async {
-    final allNotes = await getAllNotes();
+  Future<void> _cacheNotes(Database db) async {
+    final allNotes = await _getAllNotes(db);
     _notes = allNotes.toList();
     _notesStreamController.add(_notes);
   }
@@ -72,8 +73,11 @@ class NotesService {
   Future<Iterable<DatabaseNote>> getAllNotes() async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
-    final notes = await db.query(noteTable);
+    return await _getAllNotes(db);
+  }
 
+  Future<Iterable<DatabaseNote>> _getAllNotes(Database db) async {
+    final notes = await db.query(noteTable);
     return notes.map((noteRow) => DatabaseNote.fromRow(noteRow));
   }
 
@@ -222,13 +226,17 @@ class NotesService {
 
   Future<void> _ensureDbIsOpen() async {
     try {
-      await open();
+      // ignore: prefer_conditional_assignment
+      if (_dbOpening == null) {
+        _dbOpening = _open().then((db) => _db = db);
+      }
+      await _dbOpening;
     } on DatabaseAlreadyOpenException {
       // empty
     }
   }
 
-  Future<void> open() async {
+  Future<Database?> _open() async {
     if (_db != null) {
       throw DatabaseAlreadyOpenException;
     }
@@ -236,15 +244,20 @@ class NotesService {
       final docsPath = await getApplicationDocumentsDirectory();
       final dbPath = join(docsPath.path, dbName);
       final db = await openDatabase(dbPath);
-      _db = db;
 // create the user table
       await db.execute(createUserTable);
 // create the note table
       await db.execute(createNoteTable);
-      await _cacheNotes();
+
+      await _cacheNotes(db);
+      return db;
     } on MissingPlatformDirectoryException {
       throw UnableToGetDocumentsDirectory();
+    } catch (e) {
+      // ignore: avoid_print
+      print(e.toString());
     }
+    return null;
   }
 }
 
