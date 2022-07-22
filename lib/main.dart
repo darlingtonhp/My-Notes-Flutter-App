@@ -6,7 +6,7 @@ import 'package:realpj/services/auth/bloc/auth_event.dart';
 import 'package:realpj/services/auth/bloc/auth_state.dart';
 import 'package:realpj/services/auth/firebase_auth_provider.dart';
 import 'package:realpj/views/constants/routes.dart';
-import 'package:realpj/views/forgort_password_view.dart';
+import 'package:realpj/views/forgot_password_view.dart';
 import 'package:realpj/views/login_view.dart';
 import 'package:realpj/views/notes/create_update_note_view.dart';
 import 'package:realpj/views/notes/notes_view.dart';
